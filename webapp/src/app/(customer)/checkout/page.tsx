@@ -33,7 +33,7 @@ export default function Checkout() {
                 </div>
                 <div className="flex flex-row gap-1">
                     🍸
-                    <p>Le bevande dovrai ritirarle al bar</p>
+                    <p>Dopo aver pagato le bevande dovrai ritirarle al bar</p>
                 </div>
                 <div className="flex flex-row gap-1">
                     🍕
@@ -41,7 +41,7 @@ export default function Checkout() {
                 </div>
             </div>
 
-            <p className="absolute bottom-0 py-5 text-gray-600">*Prepara i soldi per velocizzare il processo😉</p>
+            <p className="py-5 text-gray-600 text-center">*Prepara i soldi per velocizzare il processo😉</p>
         </div>
 
     )
