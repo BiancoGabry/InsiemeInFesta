@@ -5,6 +5,7 @@ info:
   description: API REST per la gestione di categorie, cibi e ordini in una sagra
 servers:
   - url: http://localhost:3030
+  - url: https://api.petosinoinfesta.it
 tags:
   - name: Auth
     description: Autenticazione
