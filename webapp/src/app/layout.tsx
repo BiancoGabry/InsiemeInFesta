@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "My Sagra",
+  title: "Insieme in Festa",
   description: "Il gestionale di sagre",
 };
 
