@@ -78,8 +78,9 @@ export default function Recap() {
                             <DialogTitle>Sei sicuro di voler ordinare?</DialogTitle>
                             <DialogDescription>
                                 La tua azione sta per generare un ordine alla cassa,
-                                ti verrà dato un codice dell&apos;ordine<br />
-                                <span className="font-bold"> non dimenticarlo!</span>
+                                ti verrà dato un codice dell&apos;ordine
+                                <span className="font-bold"> non dimenticarlo!</span><br/><br/>
+                                Eventuali modifiche agli ingredienti <span className="font-bold">comunicarli in cassa prima del pagamento</span>.
                             </DialogDescription>
                         </DialogHeader>
                         <DialogFooter>
