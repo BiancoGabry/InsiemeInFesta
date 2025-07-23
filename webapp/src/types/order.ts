@@ -1,4 +1,5 @@
 import { FoodsOrderd } from "./foodOrdered"
+import { Page } from "./page"
 
 export type Order = {
     id: string,
@@ -7,4 +8,9 @@ export type Order = {
     customer: string,
     price?: number
     foodsOrdered: Array<FoodsOrderd>
+}
+
+export type PageOrder = {
+    orders: Array<Order>
+    pagination: Page
 }

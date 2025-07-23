@@ -2,12 +2,14 @@ import { Router } from "express";
 import { getOrders, getOrderById, createOrder, deleteOrder, searchOrder, searchDailyOrder, getDailyOrders } from "@/controllers/order.controller";
 import { checkOrderObj } from "@/middlewares/checkObjects/checkOrder";
 import { checkRole } from "@/middlewares/authMiddleware";
+import { validatePage } from "@/middlewares/validatePage";
 
 const router = Router();
 
 router.get(
-    "/",
+    "/pages/:page",
     checkRole(["admin", "operator"]),
+    validatePage,
     getOrders
 );
 

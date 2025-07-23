@@ -475,12 +475,20 @@ paths:
         404:
           description: Categoria non trovata
 
-  /orders:
+  /orders/pages/{page}:
     get:
       security:
         - BearerAuth: []
       tags: [Orders]
-      summary: Ottiene tutti gli ordini
+      summary: Ottiene gli ordini con paginazione
+      parameters:
+        - name: page
+          in: path
+          required: true
+          description: Numero di pagina per la paginazione degli ordini
+          schema:
+            type: integer
+            example: 1
       responses:
         200:
           description: Lista di ordini
@@ -793,6 +801,37 @@ components:
                 type: integer
               food:
                 $ref: "#/components/schemas/FoodWithCategory"
+    OrderPage: 
+      type: object
+      properties:
+        orders: 
+          type: array
+          items:
+            $ref: "#/components/schemas/FullOrder"
+        pagination:
+          type: object
+          properties:
+            currentPage:
+              type: integer
+              example: 1
+            totalPages:
+              type: integer
+              example: 10
+            totalItems:
+              type: integer
+              example: 200
+            hasNextPage:
+              type: boolean
+              example: true
+            hasPrevPage:
+              type: boolean
+              example: false
+            nextPage: 
+              type: integer
+              example: 2
+            prevPage:
+              type: integer
+              example: 1
     FoodWithCategory:
       type: object
       properties:

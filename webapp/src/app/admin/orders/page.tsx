@@ -2,25 +2,30 @@
 
 import { AdminHeader } from "@/components/admin/layout/header"
 import OrderCard from "@/components/order/orderCard";
+import OrderPagination from "@/components/order/orderPagination";
 import OrderSearch from "@/components/order/orderSearch";
 import { Order } from "@/types/order";
+import { Page } from "@/types/page";
 import { useEffect, useState } from "react"
 
 export default function Orders() {
     const [allOrders, setAllOrders] = useState<Array<Order>>([]);
     const [orders, setOrders] = useState<Array<Order>>([]);
     const [text, setText] = useState("");
+    const [index, setIndex] = useState(1);
+    const [ page, setPage ] = useState<Page | null>(null);
 
     useEffect(() => {
-        fetch(`/api/orders`, {
+        fetch(`/api/orders/pages/${index}`, {
             method: "GET",
             credentials: "include"
         }).then(async res => {
             const data = await res.json();
-            setOrders(data);
-            setAllOrders(data);
+            setOrders(data.orders);
+            setAllOrders(data.orders);
+            setPage(data.pagination);
         })
-    }, [])
+    }, [index])
 
     return (
         <>
@@ -44,6 +49,13 @@ export default function Orders() {
                                 }
                             </div>
                         </div>
+                        {
+                            page && !text ? 
+                            <OrderPagination page={page} index={index} setIndex={setIndex} />
+                            :
+                            <></>
+                        }
+                        
                     </div>
                 </div>
             </div>

@@ -5,7 +5,16 @@ import generateOrderId from "@/lib/idGenerator";
 import prisma from "@/utils/prisma";
 
 export const getOrders = async (req: Request, res: Response): Promise<void> => {
+    const { page } = req.params;
+
+    const take = 21;
+    const skip = (parseInt(page) - 1) * take;
+
+    const totalOrders = await prisma.order.count();
+
     const orders = await prisma.order.findMany({
+        take,
+        skip,
         include: {
             foodsOrdered: {
                 omit: {
@@ -23,9 +32,29 @@ export const getOrders = async (req: Request, res: Response): Promise<void> => {
                     }
                 }
             }
+        },
+        orderBy: {
+            dateTime: "desc"
         }
     });
-    res.status(200).json(orders);
+
+    const totalPages = Math.ceil(totalOrders / take);
+    const hasNextPage = parseInt(page) < totalPages;
+    const hasPrevPage = parseInt(page) > 1;
+
+    res.status(200).json({
+        orders,
+        pagination: {
+            currentPage: page,
+            totalPages,
+            totalItems: totalOrders,
+            itemsPerPage: take,
+            hasNextPage,
+            hasPrevPage,
+            nextPage: hasNextPage ? parseInt(page) + 1 : null,
+            prevPage: hasPrevPage ? parseInt(page) - 1 : null
+        }
+    });
 }
 
 export const getDailyOrders = async (req: Request, res: Response): Promise<void> => {
