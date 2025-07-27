@@ -40,11 +40,11 @@ export default function Orders() {
                                     text == ""
                                         ?
                                         allOrders.map(order => (
-                                            <OrderCard key={order.id} order={order} value={text} />
+                                            <OrderCard key={order.id} order={order} value={text} adminView setOrders={setAllOrders} />
                                         ))
                                         :
                                         orders.map(order => (
-                                            <OrderCard key={order.id} order={order} value={text} />
+                                            <OrderCard key={order.id} order={order} value={text} adminView setOrders={setOrders}/>
                                         ))
                                 }
                             </div>

@@ -23,6 +23,7 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
+
 import { Input } from "@/components/ui/input"
 
 import { z } from "zod"
@@ -93,7 +94,7 @@ export default function CategoryDialog({ category, setCategories, setShow }: Cat
             <DialogTrigger asChild>
                 {
                     category ?
-                        <Button size={"icon"} className="size-7 bg-blue-500 hover:bg-blue-500/80 text-white">
+                        <Button size={"icon"} className="size-7" variant="edit">
                             <Pencil />
                         </Button>
                         :

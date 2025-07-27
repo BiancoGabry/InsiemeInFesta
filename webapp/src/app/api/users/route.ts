@@ -5,8 +5,24 @@ import { revalidatePath } from 'next/cache';
 const API_URL = process.env.API_URL;
 
 export async function GET() {
-    const res = await fetch(`${API_URL}/foods`, { next: { revalidate: 3600 } });
+
+    const cookieStore = cookies();
+    const token = (await cookieStore).get("token")?.value || "redondi";
+
+    const res = await fetch(`${API_URL}/users`, {
+        method: "GET",
+        headers: {
+            "authorization": `Bearer ${token}`
+        },
+        next: { revalidate: 60 }
+    });
+
     const data = await res.json();
+
+    if (!res.ok) {
+        return NextResponse.json({ error: data.message || 'Not Found' }, { status: res.status });
+    }
+
     return NextResponse.json(data);
 }
 
@@ -16,7 +32,7 @@ export async function POST(request: Request) {
     const cookieStore = cookies();
     const token = (await cookieStore).get("token")?.value || "redondi";
 
-    const res = await fetch(`${API_URL}/foods`, {
+    const res = await fetch(`${API_URL}/users`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -26,8 +42,7 @@ export async function POST(request: Request) {
     });
 
     if (res.ok) {
-        revalidatePath("/api/foods");
-        revalidatePath("/api/foods/available");
+        revalidatePath("/api/users");
     }
 
     const data = await res.json();

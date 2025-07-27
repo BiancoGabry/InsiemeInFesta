@@ -10,7 +10,7 @@ export const getOrders = async (req: Request, res: Response): Promise<void> => {
     const take = 21;
     const skip = (parseInt(page) - 1) * take;
 
-    const totalOrders = await prisma.order.count();
+    const totalOrders = await prisma.order.count()
 
     const orders = await prisma.order.findMany({
         take,

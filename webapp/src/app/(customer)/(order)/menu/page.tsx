@@ -7,16 +7,14 @@ import { useEffect, useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getCategories } from "@/services/categories.service";
 
 export default function Menu() {
     const [categories, setCategories] = useState<Array<Category>>([]);
 
     useEffect(() => {
-        async function fetchCategories() {
-            const data = await fetch("/api/categories/available").then(res => res.json());
-            setCategories(data);
-        }
-        fetchCategories();
+        getCategories()
+            .then(setCategories);
     }, []);
 
     return (

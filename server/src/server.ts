@@ -21,6 +21,7 @@ import foodRoutes from "@/routes/food.routes"
 import orderRoutes from "@/routes/order.route"
 import roleRoutes from "@/routes/role.route"
 import userRoutes from "@/routes/user.route"
+import statsRoutes from "@/routes/stats.route"
 
 
 //app config
@@ -50,6 +51,7 @@ app.use("/foods", foodRoutes);
 app.use("/orders", orderRoutes);
 app.use("/roles", roleRoutes);
 app.use("/users", userRoutes);
+app.use("/stats", statsRoutes);
 
 app.listen(port, () => {
   console.log(`Server is listening on http://localhost:${port}`);

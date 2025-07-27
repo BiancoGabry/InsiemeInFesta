@@ -74,7 +74,7 @@ export default function Login() {
             }
             localStorage.setItem("user", JSON.stringify(data));
             if(data.role === "admin"){
-                router.push("/admin/categories");
+                router.push("/admin/dashboard");
             }
             else{
                 router.push("/operator/dashboard");

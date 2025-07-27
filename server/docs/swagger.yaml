@@ -610,6 +610,91 @@ paths:
                   $ref: "#/components/schemas/FullOrder"
         404:
           description: Nessun ordine trovato per oggi
+  /stats/total-orders:
+    get:
+      security:
+        - BearerAuth: []
+      tags: [Stats]
+      summary: Ottiene il totale degli ordini
+      responses:
+        200:
+          description: Totale ordini
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalOrders:
+                    type: integer
+                    example: 100
+                  ordersPerDay:
+                    type: Array
+                    items:
+                      type: object
+                      properties:
+                        day:
+                          type: string
+                          format: date
+                          example: "2025-06-01T00:00:00Z"
+                        count:
+                          type: integer
+  /stats/foods-ordered:
+    get:
+      security:
+        - BearerAuth: []
+      tags: [Stats]
+      summary: Ottiene i cibi ordinati
+      responses:
+        200:
+          description: Lista dei cibi ordinati
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  foodOrdered:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        food:
+                          type: string
+                          example: "Pizza Margherita"
+                        quantity:
+                          type: integer
+                          example: 50
+                        price:
+                          type: number
+                          format: float
+                          example: 250.00
+        500:
+          description: Errore interno del server
+  /stats/revenue:
+    get:
+      security:
+        - BearerAuth: []
+      tags: [Stats]
+      summary: Ottiene il totale delle entrate
+      responses:
+        200:
+          description: Totale entrate
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revenuePerDay:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        day:
+                          type: string
+                          format: date
+                          example: "2025-06-01T00:00:00Z"
+                        revenue:
+                          type: string
+                          example: "200.00"
 components:
   securitySchemes:
     BearerAuth:

@@ -44,6 +44,8 @@ model Order {
   price    String
 
   foodsOrdered FoodsOrdered[]
+
+  @@map("orders")
 }
 
 model FoodsOrdered {
