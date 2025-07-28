@@ -6,8 +6,6 @@ import { Label, Pie, PieChart } from "recharts"
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -35,7 +33,7 @@ export function FoodPieChart({ totalFoods, stats, className }: FoodPieChartProps
     return "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0");
   }
 
-  const pieData = stats.foodOrdered.map((item, idx) => ({
+  const pieData = stats.foodOrdered.map((item) => ({
     ...item,
     quantity: Number(item.quantity),
     fill: getRandomColor(),

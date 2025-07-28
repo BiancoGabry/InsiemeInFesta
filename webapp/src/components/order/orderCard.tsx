@@ -31,7 +31,6 @@ export default function OrderCard({ order, value = "", adminView = false, setOrd
             method: "DELETE",
             credentials: "include"
         }).then(async res => {
-            const data = await res.json();
             if (res.ok) {
                 setOrders(prev => prev.filter(o => o.id !== order.id));
             }

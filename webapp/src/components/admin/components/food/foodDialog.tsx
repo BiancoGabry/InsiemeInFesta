@@ -20,7 +20,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Food } from "@/types/food"
 import { Pencil, PlusCircle } from "lucide-react"
-import { number, z } from "zod"
+import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -40,7 +40,6 @@ const formSchema = z.object({
             message: "Il prezzo deve essere un numero maggiore di 0"
         })
         .refine(val => {
-            const num = parseFloat(val);
             // Verifica che abbia massimo 2 decimali
             return /^\d+(\.\d{1,2})?$/.test(val);
         }, {

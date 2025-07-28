@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Food } from "@/types/food";
-import { Pencil, Eye, EyeOff, Trash2 } from "lucide-react";
+import { Eye, EyeOff, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { FoodDialog } from "./foodDialog";
 import { Category } from "@/types/category";

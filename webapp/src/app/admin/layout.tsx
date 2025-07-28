@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { User } from "@/types/user";
 
 import {
     SidebarInset,
@@ -10,6 +9,7 @@ import {
 } from "@/components/ui/sidebar"
 
 import { AdminSidebar } from "@/components/admin/layout/admin-sidebar";
+type User = { username: string, role: string }
 
 export default function OperatorLayout({ children }: { children: React.ReactNode }) {
     const router = useRouter();

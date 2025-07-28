@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/sidebar"
 import { NavMain } from "./nav-main"
 
-import { Gauge, ChartArea, Pizza, Receipt, Martini, Users, ArrowLeftRight, Ticket } from "lucide-react"
+import { Gauge, Pizza, Receipt, Martini, Users, ArrowLeftRight, Ticket } from "lucide-react"
 import Logo from "@/components/logo"
 import { NavUser } from "./nav-user"
 import { useEffect, useState } from "react"
