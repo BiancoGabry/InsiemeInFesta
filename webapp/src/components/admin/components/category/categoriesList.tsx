@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Category } from "@/types/category";
 import { Button } from "@/components/ui/button";
-import { CircleMinus, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Trash2 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import CategoryDialog from "./categoryDialog";
 
@@ -61,10 +61,10 @@ function CategoryCard({ category, setCategories }: CategoryCardProps) {
             <div className="bg-secondary p-3 rounded-sm flex flex-row gap-3 place-content-between w-[400px] items-center">
                 <div className="flex flex-row gap-1 items-center">
                     <Button variant={"destructive"} size={"icon"} className="size-7" onClick={() => deleteCategory()}>
-                        <CircleMinus />
+                        <Trash2 />
                     </Button>
                     <h1>
-                        {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
+                        {category.name}
                     </h1>
                 </div>
 

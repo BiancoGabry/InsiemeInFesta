@@ -12,24 +12,51 @@ import {
 } from "@/components/ui/card"
 
 import DialogRecap from "../recap/dialogRecap"
+import { Button } from "../ui/button"
+import { Trash2 } from "lucide-react"
 
 interface OrderCardProps {
     order: Order
     value?: string
+    adminView?: boolean,
+    setOrders?: React.Dispatch<React.SetStateAction<Order[]>>
 }
 
-export default function OrderCard({ order, value="" }: OrderCardProps) {
+export default function OrderCard({ order, value = "", adminView = false, setOrders }: OrderCardProps) {
+
+    function deleteOrder() {
+        if(!setOrders) return;
+
+        fetch(`/api/orders/${order.id}`, {
+            method: "DELETE",
+            credentials: "include"
+        }).then(async res => {
+            const data = await res.json();
+            if (res.ok) {
+                setOrders(prev => prev.filter(o => o.id !== order.id));
+            }
+        })
+    }
 
     return (
         <Card>
             <CardHeader>
-                <CardTitle>
+                <CardTitle className="flex flex-row place-content-between items-center">
                     {
                         value && order.customer.toLowerCase().includes(value.toLowerCase())
                             ?
                             <span className="bg-yellow-300 p-1 rounded-sm">{order.customer}</span>
                             :
                             <span>{order.customer}</span>
+                    }
+                    {
+                        adminView
+                            ?
+                            <Button variant="destructive" size={"icon"} onClick={() => deleteOrder()}>
+                                <Trash2 />
+                            </Button>
+                            :
+                            <></>
                     }
                 </CardTitle>
 
@@ -66,7 +93,7 @@ export default function OrderCard({ order, value="" }: OrderCardProps) {
                 </p>
             </CardContent>
             <CardFooter className="flex flex-row place-content-end">
-                    <DialogRecap order={order}/>
+                <DialogRecap order={order} />
             </CardFooter>
         </Card>
     )

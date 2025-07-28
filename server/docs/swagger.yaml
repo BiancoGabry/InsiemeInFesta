@@ -476,12 +476,20 @@ paths:
         404:
           description: Categoria non trovata
 
-  /orders:
+  /orders/pages/{page}:
     get:
       security:
         - BearerAuth: []
       tags: [Orders]
-      summary: Ottiene tutti gli ordini
+      summary: Ottiene gli ordini con paginazione
+      parameters:
+        - name: page
+          in: path
+          required: true
+          description: Numero di pagina per la paginazione degli ordini
+          schema:
+            type: integer
+            example: 1
       responses:
         200:
           description: Lista di ordini
@@ -603,6 +611,91 @@ paths:
                   $ref: "#/components/schemas/FullOrder"
         404:
           description: Nessun ordine trovato per oggi
+  /stats/total-orders:
+    get:
+      security:
+        - BearerAuth: []
+      tags: [Stats]
+      summary: Ottiene il totale degli ordini
+      responses:
+        200:
+          description: Totale ordini
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalOrders:
+                    type: integer
+                    example: 100
+                  ordersPerDay:
+                    type: Array
+                    items:
+                      type: object
+                      properties:
+                        day:
+                          type: string
+                          format: date
+                          example: "2025-06-01T00:00:00Z"
+                        count:
+                          type: integer
+  /stats/foods-ordered:
+    get:
+      security:
+        - BearerAuth: []
+      tags: [Stats]
+      summary: Ottiene i cibi ordinati
+      responses:
+        200:
+          description: Lista dei cibi ordinati
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  foodOrdered:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        food:
+                          type: string
+                          example: "Pizza Margherita"
+                        quantity:
+                          type: integer
+                          example: 50
+                        price:
+                          type: number
+                          format: float
+                          example: 250.00
+        500:
+          description: Errore interno del server
+  /stats/revenue:
+    get:
+      security:
+        - BearerAuth: []
+      tags: [Stats]
+      summary: Ottiene il totale delle entrate
+      responses:
+        200:
+          description: Totale entrate
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  revenuePerDay:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        day:
+                          type: string
+                          format: date
+                          example: "2025-06-01T00:00:00Z"
+                        revenue:
+                          type: string
+                          example: "200.00"
 components:
   securitySchemes:
     BearerAuth:
@@ -794,6 +887,37 @@ components:
                 type: integer
               food:
                 $ref: "#/components/schemas/FoodWithCategory"
+    OrderPage: 
+      type: object
+      properties:
+        orders: 
+          type: array
+          items:
+            $ref: "#/components/schemas/FullOrder"
+        pagination:
+          type: object
+          properties:
+            currentPage:
+              type: integer
+              example: 1
+            totalPages:
+              type: integer
+              example: 10
+            totalItems:
+              type: integer
+              example: 200
+            hasNextPage:
+              type: boolean
+              example: true
+            hasPrevPage:
+              type: boolean
+              example: false
+            nextPage: 
+              type: integer
+              example: 2
+            prevPage:
+              type: integer
+              example: 1
     FoodWithCategory:
       type: object
       properties:

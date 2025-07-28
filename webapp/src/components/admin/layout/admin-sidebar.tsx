@@ -20,17 +20,12 @@ const data = {
     navMain: [
         {
             title: "Dashboard",
-            url: "#",
+            url: "/admin/dashboard",
             icon: Gauge,
         },
         {
-            title: "Analytics",
-            url: "#",
-            icon: ChartArea,
-        },
-        {
             title: "Manage Users",
-            url: "#",
+            url: "/admin/users",
             icon: Users,
         },
         {

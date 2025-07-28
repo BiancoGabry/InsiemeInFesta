@@ -5,8 +5,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 //logger
-import morgan from 'morgan'
-import { loggerMiddleware } from '@/middlewares/loggerMiddleware';
+import { LoggerFactory } from './utils/logger/loggerFactory';
+import { requestLogger } from './middlewares/requestLogger';
 
 //docs
 import swaggerUi from "swagger-ui-express";
@@ -21,19 +21,22 @@ import foodRoutes from "@/routes/food.routes"
 import orderRoutes from "@/routes/order.route"
 import roleRoutes from "@/routes/role.route"
 import userRoutes from "@/routes/user.route"
+import statsRoutes from "@/routes/stats.route"
+
 
 //app config
 const app = express();
 const port = process.env.PORT;
 
-app.use(morgan('combined'));
-
 app.use(cors());
 app.use(express.json());
 app.use(cors({ origin: [`http://localhost:${port}`, `https://${process.env.WEBAPP_DOMAIN}`], credentials: true }));
 
+//create logger
+const loggerFactory = new LoggerFactory();
+
 //log middleware
-app.use(loggerMiddleware);
+app.use(requestLogger(loggerFactory.getLogger()));
 
 //docs
 const swaggerDocument = yaml.load(
@@ -48,6 +51,7 @@ app.use("/foods", foodRoutes);
 app.use("/orders", orderRoutes);
 app.use("/roles", roleRoutes);
 app.use("/users", userRoutes);
+app.use("/stats", statsRoutes);
 
 app.listen(port, () => {
   console.log(`Server is listening on http://localhost:${port}`);

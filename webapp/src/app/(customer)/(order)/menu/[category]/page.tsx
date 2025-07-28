@@ -1,6 +1,7 @@
 'use server'
 
 import FoodCard from "@/components/food/foodCard";
+import { getFoodsAvailable } from "@/services/foods.service";
 import { Food } from "@/types/food";
 
 export default async function Category({
@@ -9,7 +10,7 @@ export default async function Category({
     params: Promise<{ category: string }>
 }) {
     const { category } = await params;
-    const foods = await fetch(`${process.env.API_URL}/foods/available/categories/${category}`).then(res => res.json());
+    const foods = await getFoodsAvailable(category);
 
     return (
         <div className="pt-[60px] min-h-screen">
